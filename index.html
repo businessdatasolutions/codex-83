@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.O.P.R. ACCESS TERMINAL</title>
+
+    <link rel="stylesheet" href="css/wargames-theme.css">
+    <link rel="stylesheet" href="css/data-analysis-modal.css"> <!-- For NEW Data Analysis Puzzle -->
+    <link rel="stylesheet" href="css/quiz-content.css">
+
+    <!-- MathJax for Bayesian Quiz -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body class="escape-room-active">
+
+    <!-- Bayesian Quiz Modal (hidden by default) -->
+    <div id="bayesianQuizModal" class="puzzle-modal">
+        <div class="container">
+            <h1>W.O.P.R. Data Analysis Subroutine</h1>
+            <div class="narrative">
+                <h2>INTEL REPORT:</h2>
+                <p id="quiz_narrative-text">LOADING SCENARIO PARAMETERS...</p> <!-- Prefixed ID -->
+                <p><strong>BASE RATES:</strong> <span id="quiz_rare-item-name-plural">Threat Signatures</span> constitute <span class="base-rate-dynamic-text-rare">15%</span> of contacts, and <span id="quiz_common-item-name-plural">Benign Signatures</span> constitute <span class="base-rate-dynamic-text-common">85%</span>.</p>
+                <p><strong>SYSTEM ACCURACY:</strong> The <span id="quiz_detector-name">AEGIS analysis</span> correctly classifies contact type <span class="detector-accuracy-dynamic-text">80%</span> of the time (error rate <span class="detector-error-dynamic-text">20%</span>).</p>
+            </div>
+            <div class="quiz-section">
+                <h3>TASK 1: TACTICAL GRID ASSESSMENT</h3>
+                <p class="instructions">The <span class="quiz_detector-name-placeholder">detection system</span> has flagged certain contacts as <span class="quiz_rare-item-name-placeholder">HOSTILE</span>.
+                On the 10x10 TACTICAL DISPLAY GRID (representing 100 contacts; true nature indicated by small corner marker):
+                <ol>
+                    <li>Click on the actual <strong class="quiz_rare-item-name-plural-placeholder">HOSTILE</strong> contacts (initially marked with a <span class="quiz_rare-color-name">dim red marker</span>) that the <span class="quiz_detector-name-placeholder">system</span> would <em>correctly</em> identify as <span class="quiz_rare-item-name-placeholder">HOSTILE</span>. (These will turn <strong style="color:var(--monitor-accent)">RED 'X'</strong>).</li>
+                    <li>Click on the actual <strong class="quiz_common-item-name-plural-placeholder">FRIENDLY/UNKNOWN</strong> contacts (initially marked with a <span class="quiz_common-color-name">dim green marker</span>) that the <span class="quiz_detector-name-placeholder">system</span> would <em>incorrectly</em> identify as <span class="quiz_rare-item-name-placeholder">HOSTILE</span>. (These will turn <strong style="color:var(--monitor-highlight)">YELLOW '!'</strong>).</li>
+                </ol>
+                 Your objective is to select all grid sectors the <span class="quiz_detector-name-placeholder">system</span> would designate as <span class="quiz_rare-item-name-placeholder">HOSTILE</span>.
+                </p>
+                <div class="grid-container" id="quiz_grid"></div> <!-- Prefixed ID -->
+                <div class="counters">
+                    Selected True <strong class="quiz_rare-item-name-plural-placeholder">Threats</strong> identified as <span class="quiz_rare-item-name-placeholder">Hostile</span>: <span id="quiz_clicked-rare-correctly">0</span> <!-- Prefixed ID -->
+                    <br>
+                    Selected Benign Contacts misidentified as <span class="quiz_rare-item-name-placeholder">Hostile</span>: <span id="quiz_clicked-common-incorrectly">0</span> <!-- Prefixed ID -->
+                </div>
+                <button id="quiz_submit-test1">Submit Grid Analysis</button> <!-- Prefixed ID -->
+                <div id="quiz_feedback-test1" class="feedback"></div> <!-- Prefixed ID -->
+            </div>
+            <div class="quiz-section bayes-formula-display">
+                <h3>W.O.P.R. PROBABILITY CALCULUS</h3>
+                <p>Bayes' Theorem for Threat Assessment:</p>
+                <p>$$P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}$$</p>
+                <p>CONTEXTUAL PARAMETERS:
+                <ul>
+                    <li>A = Contact is ACTUALLY '<span class="quiz_rare-item-name-placeholder-bayes-text">HOSTILE</span>'.</li>
+                    <li>B = <span class="quiz_detector-name-placeholder-bayes-text">DETECTION SYSTEM</span> flags contact as '<span class="quiz_rare-item-name-placeholder-bayes-text">HOSTILE</span>'.</li>
+                </ul>
+                TARGET PROBABILITY:
+                </p>
+                <div id="quiz_contextualBayesFormulaContainer" class="bayes-context-formula"></div> <!-- Prefixed ID -->
+            </div>
+            <div class="quiz-section">
+                <h3>TASK 2: CONDITIONAL THREAT PROBABILITY</h3>
+                <p class="instructions">Given the <span class="quiz_detector-name-placeholder">detection system</span> has flagged a contact as <span class="quiz_rare-item-name-placeholder">HOSTILE</span>, what is the probability it IS TRULY <span class="quiz_rare-item-name-placeholder">HOSTILE</span>? (Enter as percentage, e.g., 55.50).</p>
+                <label for="quiz_prob-input-test2">P(ACTUAL <span class="quiz_rare-item-name-placeholder">HOSTILE</span> | SYSTEM FLAGS <span class="quiz_rare-item-name-placeholder">HOSTILE</span>):</label>
+                <input type="number" id="quiz_prob-input-test2" step="0.01"> <!-- Prefixed ID -->
+                <button id="quiz_submit-test2">Transmit Probability Assessment</button> <!-- Prefixed ID -->
+                <div id="quiz_feedback-test2" class="feedback"></div> <!-- Prefixed ID -->
+            </div>
+            <div class="quiz-section">
+                <h3>TASK 3: SYSTEM PARAMETER QUERY</h3>
+                <p id="quiz_question-test3" class="instructions">Awaiting query on system parameter...</p> <!-- Prefixed ID -->
+                <label for="quiz_prob-input-test3" id="quiz_label-test3">RESPONSE VALUE:</label> <!-- Prefixed ID -->
+                <input type="number" id="quiz_prob-input-test3" step="0.01"> <!-- Prefixed ID -->
+                <button id="quiz_submit-test3">Submit Parameter Value</button> <!-- Prefixed ID -->
+                <div id="quiz_feedback-test3" class="feedback"></div> <!-- Prefixed ID -->
+            </div>
+            <button id="quiz_next-quiz">Recalibrate Scenario</button> <!-- Prefixed ID -->
+        </div>
+    </div>
+    <!-- New Modal for Data Analysis Puzzle -->
+    <div id="dataAnalysisModal" class="puzzle-modal" style="display: none;">
+        <div class="da-modal-header">
+            <h2 id="da_modal_title" class="da-modal-title">DATA ANALYSIS CORE INTERFACE</h2>
+            <button id="da_close_modal_btn" class="modal-close-btn">×</button>
+        </div>
+        <div class="da-modal-content-area">
+            <div id="da_instructions_container" class="da-instructions">
+                <!-- Instructions will be populated here -->
+            </div>
+            <div id="da_key_input_area" class="da-key-inputs">
+                <!-- Key input fields will be generated here -->
+            </div>
+            <button id="da_submit_keys_btn" class="mock-button data-submit-button">VALIDATE & TRANSMIT KEYS</button>
+            <div id="da_feedback_area" class="da-feedback">
+                <!-- Feedback will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Escape Room CRT Screen -->
+    <div class="crt-screen">
+        <div id="splashScreen">
+             <pre id="bootText"></pre>
+            <div class="progress-bar-container"><div id="progressBar" class="progress-bar"></div></div>
+            <p id="splashContinue" class="hidden" style="margin-top:20px;">PRESS ANY KEY TO CONTINUE...</p>
+        </div>
+        <div id="countdownTimer">TIME: 60:00</div>
+        <div id="terminalOutput"></div>
+        <pre id="mapDisplay">
+  TARGET MAP: OFFLINE
++-------------------------------------------------+
+| . . . . . . . . . . . . . . . . . . . . . . . |
+| . . . . . . . . . U . S . A . . . . . . . . . |
+| . . . . . . . . . . . . . . . . . . . . . . . |
+| . . . . . . . . . . . . . . . . . . . . . . . |
+| . . . USSR. . . . . . . . . . . . . . . . . . |
+| . . . . . . . . . . . . . . . . . . . . . . . |
++-------------------------------------------------+
+        </pre>
+        <div id="commandLineContainer">
+            <span id="promptPrefix">W.O.P.R.></span>
+            <input type="text" id="commandInput" autofocus>
+            <div id="blinkingCursor" class="blinking-cursor"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ui.js"></script>
+    <script src="js/puzzles/bayesianQuiz.js"></script>
+    <script src="js/dataAnalysisPuzzle.js"></script>
+    <script src="js/main.js"></script> <!-- Main game logic last -->
+
+</body>
+</html>

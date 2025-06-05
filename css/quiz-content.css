@@ -1,0 +1,256 @@
+/* --- REVISED 80s Themed Styles for Bayesian Quiz Modal CONTENT --- */
+
+#bayesianQuizModal .container {
+    max-width: 100%;
+    height: 100%; /* Take full height of parent puzzle-modal */
+    margin: 0;
+    padding: 15px; /* Slightly reduced padding for a tighter feel */
+    background: rgba(10, 15, 10, 0.85); /* Slightly different from main BG, or more transparent */
+    color: var(--monitor-text); /* Default text color to green */
+    font-family: 'VT323', monospace; /* THEME FONT */
+    font-size: 18px; /* Slightly smaller to fit more, adjust as needed */
+    line-height: 1.5;
+    border-radius: 0; /* NO ROUNDED CORNERS */
+    box-shadow: none; /* NO MODERN SHADOWS */
+    overflow-y: auto;
+    box-sizing: border-box;
+    text-shadow: var(--crt-glow); /* Apply CRT glow to quiz content */
+}
+
+/* Headings in the quiz */
+#bayesianQuizModal .container h1,
+#bayesianQuizModal .container h2,
+#bayesianQuizModal .container h3 {
+    color: var(--monitor-text); /* Green */
+    text-shadow: 1px 1px var(--monitor-accent); /* Red glow, like other titles */
+    border-bottom: 1px dashed var(--monitor-text-dim); /* Dashed border */
+    text-transform: uppercase; /* Classic terminal look */
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+#bayesianQuizModal .container > h1 { /* Main title of the module */
+    font-size: 24px; /* Keep it larger */
+    color: var(--monitor-highlight); /* Yellow for emphasis */
+    text-align: center;
+    margin-bottom: 20px;
+}
+#bayesianQuizModal .container h2 {
+    font-size: 20px;
+}
+
+
+/* Narrative section */
+#bayesianQuizModal .container .narrative {
+    background-color: rgba(0, 20, 0, 0.5); /* Darker green transparent bg */
+    border: 1px dashed var(--monitor-text-dim);
+    padding: 15px;
+    margin-bottom: 20px;
+    color: var(--monitor-text); /* Green text */
+    border-radius: 0; /* No rounded corners */
+}
+#bayesianQuizModal .container .narrative h2 {
+    margin-top: 0;
+    font-size: 18px;
+    border-bottom: none; /* Remove border for h2 within narrative */
+    color: var(--monitor-highlight); /* Yellow */
+    text-shadow: none; /* Maybe less shadow here if too busy */
+}
+
+
+/* Grid styling */
+#bayesianQuizModal .container .grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 300px; height: 300px; /* Keep this size or adjust as needed */
+    border: 2px solid var(--monitor-text-dim); /* Thicker border */
+    background-color: var(--monitor-bg); /* Use main monitor bg for grid */
+    margin: 20px auto;
+    box-shadow: none;
+}
+#bayesianQuizModal .container .grid-cell {
+    border: 1px solid var(--monitor-text-dim); /* Dim green grid lines */
+    display: flex; justify-content: center; align-items: center;
+    font-size: 22px; /* Larger characters in cells */
+    line-height: 1;
+    color: var(--monitor-text); /* Green text for '?' */
+    cursor: crosshair; /* Keep this cursor */
+    position: relative;
+    background-color: transparent;
+}
+
+#bayesianQuizModal .container .grid-cell::before { /* The '?' 'X' '!' */
+    content: '?';
+    color: var(--monitor-text-dim); /* Dimmer green for placeholder */
+    opacity: 1; /* Full opacity for clarity */
+    z-index: 1;
+}
+/* R (Rare) and C (Common) markers - more pixelated */
+#bayesianQuizModal .container .grid-cell.cell-rare::after,
+#bayesianQuizModal .container .grid-cell.cell-common::after {
+    content: "R"; /* Default, overridden by .cell-common */
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 14px; height: 14px; /* Slightly larger for pixel font */
+    font-family: 'Press Start 2P', cursive; /* More pixelated font for indicators */
+    font-size: 9px; /* Small pixel font */
+    line-height: 14px; text-align: center;
+    color: var(--monitor-bg); /* Black text on colored bg */
+    opacity: 1; z-index: 5;
+    border-radius: 0; /* No radius */
+    border: 1px solid var(--monitor-text-dim); /* Optional subtle border */
+}
+#bayesianQuizModal .container .grid-cell.cell-rare::after {
+    content: "R";
+    background: var(--monitor-accent); /* Red */
+}
+#bayesianQuizModal .container .grid-cell.cell-common::after {
+    content: "C";
+    background: var(--monitor-text); /* Green, C for Common, make distinct from 'R' */
+}
+
+/* Selected cell states */
+#bayesianQuizModal .container .grid-cell.cell-selected-test1-rare {
+    background-color: var(--monitor-accent) !important; /* Solid Red */
+}
+#bayesianQuizModal .container .grid-cell.cell-selected-test1-rare::before {
+    content: 'X'; color: var(--monitor-bg); /* Black/Dark X */
+    font-weight: bold; /* Keep bold for 'X' */
+}
+#bayesianQuizModal .container .grid-cell.cell-selected-test1-common {
+    background-color: var(--monitor-highlight) !important; /* Solid Yellow */
+}
+#bayesianQuizModal .container .grid-cell.cell-selected-test1-common::before {
+    content: '!'; color: var(--monitor-bg); /* Black/Dark ! */
+    font-weight: bold; /* Keep bold for '!' */
+}
+
+
+/* Instructions section */
+#bayesianQuizModal .container .instructions {
+    background-color: rgba(20, 20, 0, 0.4); /* Dark yellow, transparent */
+    border: 1px dashed var(--monitor-highlight); /* Yellow dashed border */
+    padding: 10px; margin-bottom: 15px;
+    color: var(--monitor-highlight); /* Yellow text */
+    border-radius: 0;
+    border-left: none; /* Remove specific left border, use full dashed border */
+}
+
+/* General quiz sections, Bayes formula */
+#bayesianQuizModal .container .quiz-section {
+    margin-bottom: 25px; padding-bottom: 15px;
+    border-bottom: 1px dashed var(--monitor-text-dim); /* Themed border */
+}
+#bayesianQuizModal .container .bayes-formula-display ul {
+    list-style-type: none; /* Remove bullets for a cleaner terminal look */
+    padding-left: 0;
+    color: var(--monitor-text);
+}
+#bayesianQuizModal .container .bayes-formula-display ul li::before {
+    content: "> "; /* Terminal-like prompt for list items */
+    color: var(--monitor-text-dim);
+}
+#bayesianQuizModal .container .bayes-formula-display .bayes-context-formula {
+    text-align: center; margin-top:10px; overflow-x: auto; padding: 10px;
+    background: var(--monitor-bg); /* Main monitor background */
+    border: 1px solid var(--monitor-text-dim);
+    color: var(--monitor-text); /* Green text */
+    font-family: 'VT323', monospace; /* Ensure formula uses theme font */
+    border-radius: 0;
+}
+
+/* Labels, inputs */
+#bayesianQuizModal .container label {
+    display: block; margin-bottom: 5px;
+    text-transform: uppercase; /* Uppercase labels */
+    color: var(--monitor-text); /* Green */
+    font-size: 16px; /* Slightly smaller for labels */
+}
+#bayesianQuizModal .container input[type="number"],
+#bayesianQuizModal .container input[type="text"] {
+    background: transparent; /* TRANSPARENT BACKGROUND */
+    border: 1px solid var(--monitor-text-dim); /* Dim green border */
+    color: var(--monitor-text); /* Green text */
+    font-family: 'VT323', monospace; /* THEME FONT */
+    padding: 8px; margin-bottom: 10px; width: calc(100% - 18px); /* Adjust width due to padding */
+    font-size: 18px;
+    border-radius: 0; /* NO ROUNDED CORNERS */
+    outline: none;
+    box-shadow: none;
+}
+#bayesianQuizModal .container input[type="number"]:focus,
+#bayesianQuizModal .container input[type="text"]:focus {
+    border-color: var(--monitor-text); /* Brighter green border on focus */
+    box-shadow: 0 0 5px var(--monitor-text-dim); /* Subtle glow */
+}
+
+/* Buttons */
+#bayesianQuizModal .container button {
+    background-color: var(--monitor-text-dim); /* Dim green background */
+    color: var(--monitor-bg); /* Dark text for contrast */
+    border: 1px solid var(--monitor-text); /* Brighter green border */
+    font-family: 'VT323', monospace; /* THEME FONT */
+    text-transform: uppercase; /* Uppercase buttons */
+    padding: 8px 12px; font-size: 18px;
+    cursor: pointer; letter-spacing: 1px; /* Letter spacing for retro feel */
+    border-radius: 0; /* NO ROUNDED CORNERS */
+    box-shadow: none;
+    margin: 5px 0; /* Added some margin */
+}
+#bayesianQuizModal .container button:hover {
+    background-color: var(--monitor-text); /* Brighter green background on hover */
+    color: var(--monitor-bg);
+    border-color: var(--monitor-highlight); /* Yellow border on hover */
+    box-shadow: 0 0 8px var(--monitor-highlight); /* Yellow glow */
+}
+
+/* Return to Terminal button is already styled quite well by your existing selector.
+   Ensure its ID is `#quiz_returnToTerminalBtn` in the HTML.
+   If not, this slightly more generic approach will help if the specific ID is missing */
+#bayesianQuizModal .container button[id*="returnToTerminal"] { /* Catches if ID is slightly different */
+    background-color: var(--monitor-highlight); color: #000;
+    border: 1px solid #000; font-family: 'VT323', monospace;
+    text-transform: uppercase; letter-spacing: 1px;
+    border-radius: 0; margin-top: 15px;
+}
+#bayesianQuizModal .container button[id*="returnToTerminal"]:hover {
+     background-color: #fff; color: #000; box-shadow: 0 0 10px #fff;
+}
+
+
+/* Feedback messages */
+#bayesianQuizModal .container .feedback {
+    margin-top: 15px; padding: 10px; border-radius: 0;
+    font-weight: normal;
+    border: 1px dashed; /* Dashed border for feedback */
+    text-transform: uppercase;
+}
+#bayesianQuizModal .container .feedback-correct {
+    background-color: rgba(0, 50, 0, 0.5); /* Dark green semi-transparent */
+    color: var(--monitor-text); /* Bright Green */
+    border-color: var(--monitor-text); /* Bright Green border */
+}
+#bayesianQuizModal .container .feedback-incorrect {
+    background-color: rgba(50, 0, 0, 0.5); /* Dark red semi-transparent */
+    color: var(--monitor-accent); /* Bright Red */
+    border-color: var(--monitor-accent); /* Bright Red border */
+}
+
+/* Counters */
+#bayesianQuizModal .container .counters {
+    margin-bottom: 15px;
+    color: var(--monitor-text-dim); /* Dim green for counter labels */
+    font-weight: normal;
+    text-transform: uppercase;
+}
+#bayesianQuizModal .container .counters span {
+    margin-right: 15px;
+    font-weight: normal; /* Labels normal weight */
+    color: var(--monitor-text-dim);
+}
+#bayesianQuizModal .container .counters strong {
+    color: var(--monitor-highlight); /* Yellow for the actual numbers */
+    font-family: 'Press Start 2P', cursive; /* Pixel number font */
+    font-size: 20px; /* Larger pixel numbers */
+}

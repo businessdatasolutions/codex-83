@@ -1,0 +1,146 @@
+/* css/data-analysis-modal.css */
+
+#dataAnalysisModal { /* Inherits from .puzzle-modal for basic frame */
+    /* Ensure it fills the screen or desired portion */
+    position: fixed; /* Or absolute if a parent is relative and sized */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw; /* Example width, adjust as needed */
+    max-width: 950px; /* Consistent max-width with Bayesian quiz */
+    height: 85vh;   /* Example height */
+    background-color: var(--monitor-bg, #0a0f0a); /* Fallback if --monitor-bg isn't globally available yet */
+    border: 3px solid var(--monitor-text, #00ff41);
+    box-shadow: 0 0 25px var(--monitor-text-dim, #008020), inset 0 0 15px #000;
+    z-index: 200;
+    overflow: hidden;
+    display: none; /* Hidden by default */
+    flex-direction: column; /* Added for header/content layout */
+    color: var(--monitor-text, #00ff41); /* Default text color for the modal frame */
+    font-family: 'VT323', monospace;
+}
+
+.da-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: rgba(10, 20, 10, 0.8);
+    border-bottom: 1px solid var(--monitor-text-dim);
+    flex-shrink: 0;
+}
+#da_modal_title {
+    margin: 0;
+    font-size: 20px;
+    color: var(--monitor-highlight);
+    text-shadow: 1px 1px var(--monitor-accent);
+}
+.modal-close-btn#da_close_modal_btn { /* Specific ID for this close button */
+    background: none;
+    border: none;
+    color: var(--monitor-text);
+    font-size: 28px;
+    font-family: 'VT323', monospace;
+    line-height: 1;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.modal-close-btn#da_close_modal_btn:hover {
+    color: var(--monitor-accent);
+}
+
+.da-modal-content-area {
+    padding: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    font-family: 'VT323', monospace;
+    color: var(--monitor-text);
+}
+
+.da-instructions {
+    border: 1px dashed var(--monitor-text-dim);
+    background-color: rgba(0, 10, 0, 0.5);
+    padding: 10px;
+    margin-bottom: 20px;
+    max-height: 220px;
+    overflow-y: auto;
+    font-size: 16px;
+    line-height: 1.4;
+}
+.da-instructions pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: 'VT323', monospace;
+    color: var(--monitor-text);
+}
+
+.da-key-inputs {
+    margin-bottom: 20px;
+}
+.da-key-inputs label {
+    display: inline-block;
+    width: 75px;
+    color: var(--monitor-text-dim);
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+.da-key-inputs .da-key-input {
+    background-color: rgba(0,0,0,0.7);
+    border: 1px solid var(--monitor-text-dim);
+    color: var(--monitor-text);
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    padding: 6px 8px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    width: calc(100% - 100px);
+    box-sizing: border-box;
+    border-radius: 0;
+    outline: none;
+    vertical-align: middle;
+}
+.da-key-inputs .da-key-input:focus {
+    border-color: var(--monitor-text);
+    box-shadow: 0 0 8px var(--monitor-text-dim);
+}
+
+#da_submit_keys_btn {
+    display: block;
+    width: fit-content;
+    margin: 15px auto;
+    padding: 10px 25px;
+    font-size: 18px;
+    background-color: var(--monitor-accent);
+    color: white;
+    border: 1px solid white;
+    font-family: 'VT323', monospace;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+#da_submit_keys_btn:hover {
+    background-color: #ff3333;
+    box-shadow: 0 0 10px var(--monitor-accent);
+}
+#da_submit_keys_btn:disabled {
+    background-color: #555;
+    border-color: #444;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.da-feedback {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px dashed var(--monitor-text-dim);
+}
+.da-feedback ul {
+    list-style-type: none;
+    padding-left: 5px;
+}
+.da-feedback ul li {
+    margin-bottom: 5px;
+    font-size: 16px;
+}

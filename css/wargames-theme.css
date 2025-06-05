@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap');
+
+:root {
+    --monitor-bg: #0a0f0a;
+    --monitor-text: #00ff41; /* Green */
+    --monitor-text-dim: #008020; /* Dim Green */
+    --monitor-accent: #ff0000; /* Red */
+    --monitor-highlight: #ffff00; /* Yellow */
+    --scanline-intensity: 0.1;
+    --crt-glow: 0px 0px 15px var(--monitor-text-dim);
+}
+
+body.escape-room-active {
+    background-color: #111;
+    color: var(--monitor-text);
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    margin: 0; padding: 0; display: flex;
+    align-items: center; justify-content: center;
+    min-height: 100vh; overflow: hidden; cursor: default;
+}
+
+.crt-screen {
+    width: 95vw; max-width: 1200px; height: 90vh;
+    background-color: var(--monitor-bg);
+    color: var(--monitor-text);
+    border: 5px solid #333;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.7), 0 0 50px var(--monitor-text-dim);
+    border-radius: 20px / 30px; overflow: hidden; position: relative;
+    display: flex; flex-direction: column; padding: 20px; box-sizing: border-box;
+    animation: crt-flicker 0.15s infinite alternate;
+}
+
+.crt-screen::before {
+    content: " "; display: block; position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(transparent 50%, rgba(0,0,0, var(--scanline-intensity)) 50%),
+                linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,0,0.02), rgba(0,0,255,0.03));
+    background-size: 100% 4px, 6px 100%;
+    z-index: 2; pointer-events: none; animation: scanline-scroll 20s linear infinite;
+}
+@keyframes scanline-scroll { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
+@keyframes crt-flicker { 0% { opacity: 0.98; } 100% { opacity: 1; } }
+
+#terminalOutput {
+    flex-grow: 1; overflow-y: auto; padding-right: 10px;
+    margin-bottom: 10px; line-height: 1.4; text-shadow: var(--crt-glow);
+}
+#terminalOutput p, #terminalOutput pre { margin: 5px 0; white-space: pre-wrap; word-break: break-all; }
+.prompt { color: var(--monitor-text); }
+.system-message { color: var(--monitor-text-dim); font-style: italic; }
+.error-message { color: var(--monitor-accent); font-weight: bold; }
+.success-message { color: #00ff00; font-weight: bold; }
+.highlight { background-color: var(--monitor-text); color: var(--monitor-bg); padding: 0 3px; }
+
+#commandLineContainer { display: flex; align-items: center; border-top: 1px dashed var(--monitor-text-dim); padding-top: 10px; }
+#commandLineContainer span { margin-right: 8px; color: var(--monitor-text); }
+#commandInput { background-color: transparent; border: none; color: var(--monitor-text); font-family: 'VT323', monospace; font-size: inherit; flex-grow: 1; outline: none; padding: 5px; caret-color: var(--monitor-text); }
+.blinking-cursor { display: inline-block; width: 10px; height: 20px; background-color: var(--monitor-text); animation: blink 1s step-end infinite; margin-left: 2px; vertical-align: bottom; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+.room-content { border: 1px dashed var(--monitor-text-dim); padding: 15px; margin-top: 10px; background: rgba(0, 20, 0, 0.3); }
+.room-content h2 { color: var(--monitor-text); text-decoration: underline; margin-top: 0; text-shadow: 1px 1px var(--monitor-accent); }
+
+#splashScreen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--monitor-bg); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+#bootText { white-space: pre; font-size: 16px; }
+.progress-bar-container { width: 80%; height: 20px; border: 1px solid var(--monitor-text); margin-top: 20px; }
+.progress-bar { width: 0%; height: 100%; background-color: var(--monitor-text); transition: width 0.1s linear; }
+#splashContinue { margin-top:20px; }
+
+#countdownTimer { position: absolute; top: 30px; right: 40px; font-size: 28px; color: var(--monitor-accent); text-shadow: 0 0 10px var(--monitor-accent); z-index: 5; font-family: 'Press Start 2P', cursive; }
+#mapDisplay { font-size: 10px; line-height: 1.0; letter-spacing: 2px; padding: 10px; border: 1px solid var(--monitor-text-dim); background-color: rgba(0,10,0,0.5); margin-top: 10px; display: none; }
+.hidden { display: none !important; }
+
+/* Modal Frame styling for ALL puzzles */
+.puzzle-modal { /* Generic class for all puzzle modals */
+    display: none; position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw; max-width: 950px; height: 85vh;
+    background-color: #080c08;
+    border: 3px solid var(--monitor-text);
+    box-shadow: 0 0 25px var(--monitor-text-dim), inset 0 0 15px #000;
+    z-index: 200; overflow: hidden;
+    /* Font and color for modal FRAME ITSELF, not necessarily content */
+    font-family: 'VT323', monospace;
+    color: var(--monitor-text);
+}
